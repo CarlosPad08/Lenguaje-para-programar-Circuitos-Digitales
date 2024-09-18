@@ -46,8 +46,8 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
 ;;REPRESENTACION
 (define-datatype circuito circuito?
   (simple-circuit 
-    (in symbol?)
-    (out symbol?) 
+    (in (list-of symbol?))
+    (out symbol?)
     (chip chip?))
   (complex-circuit 
     (circ circuito?)
@@ -77,10 +77,3 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
 
 ;;EJEMPLOS
 ;;AREA DEL PROGRAMADOR
-(define circ1
-    (simple-circuit '(a b) '(c) (chip-or))
-)
-
-(define circ2
-    (simple-circuit '(a b) '(c) (chip-and))
-)
