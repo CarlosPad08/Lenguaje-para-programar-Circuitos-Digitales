@@ -246,8 +246,6 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
 
 ;;EJEMPLOS
 ;;AREA DEL PROGRAMADOR
-(provide simple-circuit complex-circuit prim-chip comp-chip chip-or chip-and chip-not chip-xor chip-nand chip-nor chip-xnor)
-
 (define half-substractor
     (comp-chip
         '(INA INB)
@@ -319,17 +317,3 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
         '(v)
     )
 )
-
-#|(define circuito2
-    (complex-circuit
-        (simple-circuit
-            '(x y)
-            '(e f)
-            (comp-chip
-                '(INA INB)
-                '(OUTA OUTB)
-                (complex-circuit
-                    (simple-circuit 
-                        '(o p)
-                        '()))))))
-|#

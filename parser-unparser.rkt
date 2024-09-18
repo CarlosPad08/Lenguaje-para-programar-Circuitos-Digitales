@@ -162,11 +162,7 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
     )
 )
 
-(define circuitoBien
-    '(simple-circuit (a b) (c) (prim-chip (chip-xor)))
-)
-
-(define circuitoPrueba
+(define circuito2
     '(complex-circuit
         (simple-circuit (a b) (c) (prim-chip (chip-xor)))
         (list
@@ -175,5 +171,46 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
         )
         (a b c e)
         (f g)
+    )
+)
+
+(define circuito1
+    '(complex-circuit
+        (simple-circuit 
+            (w x y z)
+            (e f)
+            (comp-chip
+                (INA INB INC IND)
+                (OUTE OUTF)
+                (complex-circuit
+                    (simple-circuit (a b) (e) (prim-chip (chip-nand)))
+                    (list
+                        (simple-circuit (c d) (f) (prim-chip (chip-nand)))
+                    )
+                    (a b c d)
+                    (e f)
+                )
+            )
+        )
+        (list
+            (simple-circuit 
+                (e f)
+                (g)
+                (comp-chip
+                    (INE INF)
+                    (OUTG)
+                    (complex-circuit
+                        (simple-circuit (e f) (g) (prim-chip (chip-nor)))
+                        (list
+                            (simple-circuit (g) (h) (prim-chip (chip-not)))
+                        )
+                        (e f)
+                        (h)
+                    )
+                )
+            )
+        )
+        (w x y z)
+        (v)
     )
 )

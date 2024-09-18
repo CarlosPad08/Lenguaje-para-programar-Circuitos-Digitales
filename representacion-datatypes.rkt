@@ -47,21 +47,21 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
 (define-datatype circuito circuito?
   (simple-circuit 
     (in (list-of symbol?))
-    (out symbol?)
+    (out (list-of symbol?))
     (chip chip?))
   (complex-circuit 
     (circ circuito?)
-    (lcircs circuito?)
-    (in symbol?)
-    (out symbol?))
+    (lcircs (list-of circuito?))
+    (in (list-of symbol?))
+    (out (list-of symbol?)))
 )
 
 (define-datatype chip chip?
   (prim-chip
     (chip-prim chip-prim?))
   (comp-chip 
-    (in symbol?)
-    (out symbol?)
+    (in (list-of symbol?))
+    (out (list-of symbol?))
     (circ circuito?))
 )
 

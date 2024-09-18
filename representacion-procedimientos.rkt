@@ -312,10 +312,3 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
 
 ;;EJEMPLOS
 ;;AREA DEL PROGRAMADOR
-(define circ1
-    (simple-circuit '(a b) '(c) (chip-or))
-)
-
-(define circ2
-    (simple-circuit '(a b) '(c) (chip-and))
-)
