@@ -176,6 +176,7 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
     )
 )
 
+;;AREA DEL PROGRAMADOR
 ;;EJEMPLOS
 (define half-substractor
    '(comp-chip
@@ -205,18 +206,6 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
             (a b c d)
             (b c)
         )
-    )
-)
-
-(define circuito2
-    '(complex-circuit
-        (simple-circuit (a b) (c) (prim-chip (chip-xor)))
-        (list
-            (simple-circuit (c) (d) (prim-chip (chip-not)))
-            (simple-circuit (d e) (g) (prim-chip (chip-and)))
-        )
-        (a b c e)
-        (f g)
     )
 )
 
@@ -258,5 +247,34 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
         )
         (w x y z)
         (v)
+    )
+)
+
+(define circuito2
+    '(complex-circuit
+        (simple-circuit
+            (a b c)
+            (z)
+            (comp-chip
+                (INA INB INC)
+                (OUTD OUTE)
+                (complex-circuit
+                    (simple-circuit (m q) (s) (prim-chip (chip-and))
+                    )
+                    (list
+                        (simple-circuit (n) (q) (prim-chip (chip-not)))
+                        (simple-circuit (o) (r) (prim-chip (chip-not)))
+                        (simple-circuit (r) (p) (prim-chip (chip-and)))
+                    )
+                    (m n o p)
+                    (s t)
+                )
+            )
+        )
+        (list
+            (simple-circuit (x y) (z) (prim-chip (chip-or)))
+        )
+        (a b c)
+        (z)
     )
 )
