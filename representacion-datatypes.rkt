@@ -160,3 +160,23 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
         (v)
     )
 )
+
+(define chip1
+    '(comp-chip
+        (INA INB INC)
+        (OUTA)
+        (complex-circuit
+            (simple-circuit (a b) (d) (prim-chip (chip-and)))
+            (list
+                (simple-circuit (a c) (e) (prim-chip (chip-and)))
+                (simple-circuit (b) (f) (prim-chip (chip-not)))
+                (simple-circuit (c) (g) (prim-chip (chip-not)))
+                (simple-circuit (e) (h) (prim-chip (chip-not)))
+                (simple-circuit (f g) (i) (prim-chip (chip-not)))
+                (simple-circuit (d h i) (p) (prim-chip (chip-not)))
+            )
+            (a b c)
+            (p)
+        )
+    )
+)
