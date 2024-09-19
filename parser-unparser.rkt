@@ -75,7 +75,7 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
 )
 
 ;;PARSER
-(define parser-circuit
+(define parser
     (lambda (exp)
         (cond
             [(eq? (car exp) 'simple-circuit)
@@ -85,13 +85,14 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
                 )
             ]
             [(eq? (car exp) 'complex-circuit)
-                (complex-circuit (parser-circuit (cadr exp))
-                                 (map parser-circuit (cdr (caddr exp)))
+                (complex-circuit (parser (cadr exp))
+                                 (map parser (cdr (caddr exp)))
                                  (cadddr exp)
                                  (car (cddddr exp))
                 )
             ]
-            [else parser-chip exp]
+            [(eq? (car exp) 'comp-chip) (parser-chip exp)]
+            [(eq? (car exp) 'prim-chip) (parser-chip exp)]
         )
     )
 )
@@ -104,7 +105,7 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
             [(eq? (car exp) 'comp-chip)
                 (comp-chip (cadr exp)
                            (caddr exp)
-                           (parser-circuit (cadddr exp)))]
+                           (parser (cadddr exp)))]
         )
     )
 )
@@ -127,6 +128,51 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
             [(eq? (car exp) 'chip-xnor)
                 (chip-xnor)]
             )
+    )
+)
+
+;;UNPARSER
+(define unparser
+    (lambda (ast)
+        (cases circuito ast
+            (simple-circuit (in out chip)
+                (list 'simple-circuit in out (unparser-chip chip))
+            )
+            (complex-circuit (circ lcircs in out)
+                (list 'complex-circuit (unparser circ)
+                                       (map unparser lcircs)
+                                       in
+                                       out
+                )
+            )
+        )
+    )
+)
+
+(define unparser-chip
+    (lambda (ast)
+        (cases chip ast
+            (prim-chip (chip-prim)
+                (list 'prim-chip (unparser-chip-prim chip-prim))
+            )
+            (comp-chip (in out circ)
+                (list 'comp-chip in out (unparser circ))
+            )
+        )
+    )
+)
+
+(define unparser-chip-prim
+    (lambda (ast)
+        (cases chip-prim ast
+            (chip-or () (list 'chip-or))
+            (chip-and () (list 'chip-and))
+            (chip-not () (list 'chip-not))
+            (chip-xor () (list 'chip-xor))
+            (chip-nand () (list 'chip-nand))
+            (chip-nor () (list 'chip-nor))
+            (chip-xnor () (list 'chip-xnor))
+        )
     )
 )
 

@@ -312,3 +312,86 @@ AUTOR: CARLOS FERNANDO PADILLA MESA - 202059962
 
 ;;EJEMPLOS
 ;;AREA DEL PROGRAMADOR
+(define half-substractor
+   '(comp-chip
+        (INA INB)
+        (DIFF BORROW)
+        (complex-circuit
+            (simple-circuit (a b) (f) (prim-chip (chip-xor)))
+            (list
+                (simple-circuit (c) (d) (prim-chip (chip-not)))
+                (simple-circuit (d e) (g) (prim-chip (chip-and)))
+            )
+            (a b c e)
+            (f g)
+        )
+    )
+)
+
+(define latch
+    '(comp-chip
+        (INR INS)
+        (OUTQ OUTQN)
+        (complex-circuit
+            (simple-circuit (a b) (c) (prim-chip (chip-nor)))
+            (list
+                (simple-circuit (c d) (b) (prim-chip (chip-nor)))
+            )
+            (a b c d)
+            (b c)
+        )
+    )
+)
+
+(define circuito2
+    '(complex-circuit
+        (simple-circuit (a b) (c) (prim-chip (chip-xor)))
+        (list
+            (simple-circuit (c) (d) (prim-chip (chip-not)))
+            (simple-circuit (d e) (g) (prim-chip (chip-and)))
+        )
+        (a b c e)
+        (f g)
+    )
+)
+
+(define circuito1
+    '(complex-circuit
+        (simple-circuit 
+            (w x y z)
+            (e f)
+            (comp-chip
+                (INA INB INC IND)
+                (OUTE OUTF)
+                (complex-circuit
+                    (simple-circuit (a b) (e) (prim-chip (chip-nand)))
+                    (list
+                        (simple-circuit (c d) (f) (prim-chip (chip-nand)))
+                    )
+                    (a b c d)
+                    (e f)
+                )
+            )
+        )
+        (list
+            (simple-circuit 
+                (e f)
+                (g)
+                (comp-chip
+                    (INE INF)
+                    (OUTG)
+                    (complex-circuit
+                        (simple-circuit (e f) (g) (prim-chip (chip-nor)))
+                        (list
+                            (simple-circuit (g) (h) (prim-chip (chip-not)))
+                        )
+                        (e f)
+                        (h)
+                    )
+                )
+            )
+        )
+        (w x y z)
+        (v)
+    )
+)
